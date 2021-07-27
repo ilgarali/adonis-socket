@@ -949,10 +949,19 @@ function newMessage() {
 	$('.contact.active .preview').html('<span>You: </span>' + message);
 	$(".messages").animate({ scrollTop: $(document).height() }, "fast");
     socket.emit('sendMessage', { message })
-   
+
 };
+const messagesHolder = document.querySelector('.messages > ul')
 socket.on('response',(data) => {
         console.log(data);
+        console.log(messagesHolder);
+        messagesHolder.insertAdjacentHTML('beforeend',`
+        <li class="replies">
+					
+					<p>${data.message}</p>
+				</li>
+        `)
+
     })
 $('.submit').click(function() {
   newMessage();
